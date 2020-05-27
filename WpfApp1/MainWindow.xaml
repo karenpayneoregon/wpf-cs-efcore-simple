@@ -1,0 +1,52 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Code sample" Height="247.77" Width="400.298" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <StackPanel Orientation="Vertical">
+        <DataGrid 
+            x:Name="EmployeeGrid" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            Margin="0,5,0,15" 
+            Height="162">
+
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="55" Click="ChangeText" Content="Get"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn 
+                    Header="First" 
+                    Binding="{Binding FirstName}" 
+                    Width="*"  />
+
+                <DataGridTextColumn 
+                    Header="Last" 
+                    Binding="{Binding LastName}" 
+                    Width="*"  />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button 
+            HorizontalAlignment="Right" 
+            Content="Exit"
+            Margin="0,0,20,0" 
+            Width="60" 
+            Click="Button_Click"/>
+
+    </StackPanel>
+    
+
+</Window>
