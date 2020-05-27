@@ -43,7 +43,7 @@ namespace WpfApp1
 
             using (var context = new HRContext())
             {
-                var employeeCollection = new ObservableCollection<Employees>(context.Employees.ToList());
+                var employeeCollection = new ObservableCollection<Employees>(context.Employees.AsQueryable());
                 EmployeeGrid.ItemsSource = employeeCollection;
             }
 
