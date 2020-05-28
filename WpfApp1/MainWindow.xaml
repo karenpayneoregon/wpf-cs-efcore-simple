@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Code sample" Height="247.77" Width="400.298" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Code sample" Height="275.77" Width="400.298" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <StackPanel Orientation="Vertical">
         <DataGrid 
@@ -39,12 +39,39 @@
 
         </DataGrid>
 
-        <Button 
-            HorizontalAlignment="Right" 
-            Content="Exit"
-            Margin="0,0,20,0" 
-            Width="60" 
-            Click="Button_Click"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+
+
+            <Label Grid.Column="0" 
+                   Content="Search" 
+                   VerticalAlignment="Center" 
+                   Margin="20,0,0,0"></Label>
+
+            <TextBox 
+                Grid.Column="1" 
+                x:Name="LastNameSearchTextBox" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Height="23" Width="150" 
+                TextWrapping="Wrap" 
+                Text="" 
+                Margin="20,0,0,0" 
+                TextChanged="LastNameSearchTextBox_TextChanged"/>
+
+            <Button 
+                Grid.Column="2" 
+                HorizontalAlignment="Right" 
+                Content="Exit" 
+                Margin="0,0,20,0"  
+                Width="70" 
+                Click="Button_Click"/>
+
+        </Grid>
 
     </StackPanel>
     
