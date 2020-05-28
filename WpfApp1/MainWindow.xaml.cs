@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using WpfApp1.Classes;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
 using static WpfApp1.Classes.Dialogs;
@@ -27,9 +28,11 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private HRContext Context;
         public MainWindow()
         {
             InitializeComponent();
+            Context = new HRContext();
         }
 
         bool _hasShown;
@@ -44,40 +47,37 @@ namespace WpfApp1
             }
 
             _hasShown = true;
+            var employeeCollection = new ObservableCollection<Employees>(Context.Employees.AsQueryable());
 
-            using (var context = new HRContext())
-            {
-                var employeeCollection = new ObservableCollection<Employees>(context.Employees.AsQueryable());
-                
-                EmployeeGrid.ItemsSource = employeeCollection;
+            EmployeeGrid.ItemsSource = employeeCollection;
 
-                employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
-            }
+            employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
 
         }
         /// <summary>
+        /// Informational
         /// Example of gaining access to a deleted employee
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EmployeeCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.OldItems != null)
-            {
-                //Console.WriteLine(e.OldStartingIndex);
-            }
+            if (e.OldItems == null) return;
+            if (e.Action != NotifyCollectionChangedAction.Remove) return;
+
+            var employee = (Employees)e.OldItems[0];
+            InformationDialog($"Index: {e.OldStartingIndex} - {employee.FirstName} {employee.LastName}", "Just removed");
         }
 
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
-            var currentEmployee = (Employees) (sender as Button)?.DataContext;
+            var employee = (Employees) (sender as Button)?.DataContext;
             MessageBox.Show(
-                $"{currentEmployee.EmployeeId}: " + 
-                           $"{currentEmployee.FirstName} " + 
-                           $"{currentEmployee.LastName}", "Current Employee", 
+                $"{employee.EmployeeId}: " + 
+                           $"{employee.FirstName} " + 
+                           $"{employee.LastName}", "Current Employee", 
                 MessageBoxButton.OK, 
                 MessageBoxImage.Information);
-
         }
 
         /// <summary>
@@ -111,6 +111,7 @@ namespace WpfApp1
         private void Grid_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var grid = (DataGrid)sender;
+
             if (e.Command != DataGrid.DeleteCommand) return;
 
             if (grid.SelectedItem is Employees employee)
@@ -122,7 +123,38 @@ namespace WpfApp1
                 }
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Save changes by prompting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+           
+            try
+            {
+                // we only have to deal with deletes and modified items
+                var affectedCount = Context.ChangeTracker.Entries().Count(entry => 
+                    entry.State == EntityState.Deleted || entry.State == EntityState.Modified);
+
+                if (affectedCount > 0)
+                {
+                    if (Question("Save changes?"))
+                    {
+                        Context.SaveChanges();
+                    }
+                }
+                else
+                {
+                    InformationDialog("Nothing to save.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog("Something went wrong", "Ooops", ex);
+            }
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

@@ -39,41 +39,50 @@
 
         </DataGrid>
 
-        <Grid>
+        <Grid Height="32">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="217" />
+                <ColumnDefinition Width="98" />
+                <ColumnDefinition Width="195" />
             </Grid.ColumnDefinitions>
 
 
             <Label Grid.Column="0" 
                    Content="Search" 
                    VerticalAlignment="Center" 
-                   Margin="20,0,0,0"></Label>
+                   Margin="5,0,0,0" Height="26"/>
 
             <TextBox 
                 Grid.Column="1" 
                 x:Name="LastNameSearchTextBox" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center" 
-                Height="23" Width="150" 
+                Height="22" Width="92" 
                 TextWrapping="Wrap" 
                 Text="" 
-                Margin="20,0,0,0" 
+                Margin="11,2,0,2" 
                 TextChanged="LastNameSearchTextBox_TextChanged"/>
+
+            <Button 
+                Grid.Column="1" 
+                HorizontalAlignment="Left" 
+                Content="Save"  
+                Width="70" 
+                Margin="159,3,0,2" Height="27" Grid.ColumnSpan="2" Click="SaveChangesButton_Click"/>
+
 
             <Button 
                 Grid.Column="2" 
                 HorizontalAlignment="Right" 
                 Content="Exit" 
-                Margin="0,0,20,0"  
+                Margin="0,3,188,2"  
                 Width="70" 
-                Click="Button_Click"/>
+                Click="CloseButton_Click" Height="27" Grid.ColumnSpan="2"/>
 
         </Grid>
 
     </StackPanel>
-    
+
 
 </Window>
