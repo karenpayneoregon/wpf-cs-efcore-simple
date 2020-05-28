@@ -12,10 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
+using static WpfApp1.Classes.Dialogs;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WpfApp1
 {
@@ -47,9 +50,24 @@ namespace WpfApp1
                 var employeeCollection = new ObservableCollection<Employees>(context.Employees.AsQueryable());
                 
                 EmployeeGrid.ItemsSource = employeeCollection;
+
+                employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
             }
 
         }
+        /// <summary>
+        /// Example of gaining access to a deleted employee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EmployeeCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+            {
+                //Console.WriteLine(e.OldStartingIndex);
+            }
+        }
+
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var currentEmployee = (Employees) (sender as Button)?.DataContext;
@@ -85,9 +103,29 @@ namespace WpfApp1
                        StringComparison.InvariantCultureIgnoreCase));
             }
         }
+        /// <summary>
+        /// Prompt to remove the current row in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Grid_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var grid = (DataGrid)sender;
+            if (e.Command != DataGrid.DeleteCommand) return;
+
+            if (grid.SelectedItem is Employees employee)
+            {
+                var employeeName = $"{employee.FirstName} {employee.LastName}";
+                if (!Question($"Delete {employeeName}", "Confirm Delete"))
+                {
+                    e.Handled = true;
+                }
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
     }
 }

@@ -9,7 +9,7 @@
 
     <StackPanel Orientation="Vertical">
         <DataGrid 
-            x:Name="EmployeeGrid" 
+            x:Name="EmployeeGrid" CommandManager.PreviewCanExecute="Grid_PreviewCanExecute"
             AutoGenerateColumns="False" 
             CanUserAddRows="False" 
             Margin="0,5,0,15" 
