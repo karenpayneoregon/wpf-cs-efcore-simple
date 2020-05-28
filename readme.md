@@ -13,4 +13,4 @@ With that this is the last version that even resembles Windows Forms.
 - Restored NuGet packages from Solution Explorer
 - Build and run the project. 
 
-![screenshot](assets/Grid1.png)
+![screenshot](assets/Grid2.png)
