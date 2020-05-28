@@ -48,7 +48,7 @@ namespace WpfApp1
             }
 
         }
-        private void ChangeText(object sender, RoutedEventArgs e)
+        private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var currentEmployee = (Employees) (sender as Button)?.DataContext;
             MessageBox.Show(

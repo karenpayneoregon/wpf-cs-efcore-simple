@@ -20,7 +20,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="55" Click="ChangeText" Content="View"/>
+                            <Button Width="55" Click="ViewCurrentEmployee" Content="View"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
