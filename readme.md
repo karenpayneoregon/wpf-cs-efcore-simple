@@ -13,4 +13,6 @@ With that this is the last version that even resembles Windows Forms.
 - Restored NuGet packages from Solution Explorer
 - Build and run the project. 
 
+[Microsoft TechNet article](https://social.technet.microsoft.com/wiki/contents/articles/53914.wpfentity-framework-core-primer-c.aspx)
+
 ![screenshot](assets/Grid2.png)
