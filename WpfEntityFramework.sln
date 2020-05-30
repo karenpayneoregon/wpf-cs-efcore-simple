@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra validation", "Extra validation", "{918D1176-06FA-463F-92AB-7D92BA17BB0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidatorLibrary", "DataValidatorLibrary\DataValidatorLibrary.csproj", "{7FDD41EA-6186-4458-87E4-3FA1B8302E77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{01483674-EFBB-4080-8163-851E55CAF2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01483674-EFBB-4080-8163-851E55CAF2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01483674-EFBB-4080-8163-851E55CAF2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7FDD41EA-6186-4458-87E4-3FA1B8302E77} = {918D1176-06FA-463F-92AB-7D92BA17BB0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD2E90D8-9737-4F1F-B24D-34A200B76BA3}
