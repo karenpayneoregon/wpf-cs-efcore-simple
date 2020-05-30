@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using WpfApp1.Classes;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
 using static WpfApp1.Classes.Dialogs;
@@ -51,8 +50,8 @@ namespace WpfApp1
             var employeeCollection = new ObservableCollection<Employees>(Context.Employees.AsQueryable());
             
             EmployeeGrid.ItemsSource = employeeCollection;
-            
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
+            DataContext = employeeCollection;
 
             /*
              * Find employee by last name, if found
@@ -65,6 +64,7 @@ namespace WpfApp1
 
             EmployeeGrid.SelectedItem = employee;
             EmployeeGrid.ScrollIntoView(employee);
+
         }
         /// <summary>
         /// Informational
@@ -75,10 +75,12 @@ namespace WpfApp1
         private void EmployeeCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems == null) return;
+            Console.WriteLine(e.Action);
             if (e.Action != NotifyCollectionChangedAction.Remove) return;
 
             var employee = (Employees)e.OldItems[0];
             InformationDialog($"Index: {e.OldStartingIndex} - {employee.FirstName} {employee.LastName}", "Just removed");
+
         }
         /// <summary>
         /// Show some details on the currently selected employee when clicking
@@ -89,14 +91,10 @@ namespace WpfApp1
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var employee = (Employees) (sender as Button)?.DataContext;
-            var manager = employee?.Manager;
 
-            MessageBox.Show(
-                $"{employee?.EmployeeId}: " + 
-                           $"{employee?.FirstName} " + 
-                           $"{employee?.LastName}\nManager: {manager?.FirstName} {manager?.LastName}", "Current Employee", 
-                MessageBoxButton.OK, 
-                MessageBoxImage.Information);
+            var window = new DetailsWindow(employee) {Owner = this};
+            window.ShowDialog();
+            
         }
 
         /// <summary>
@@ -110,12 +108,14 @@ namespace WpfApp1
             var lastNameFilter = tb.Text;
             var cvs = CollectionViewSource.GetDefaultView(EmployeeGrid.ItemsSource);
 
+            // nothing entered to search so remove an existing filter
             if (string.IsNullOrWhiteSpace(lastNameFilter))
             {
                 cvs.Filter = null;
             }
             else
             {
+                // do the filter
                 cvs.Filter = item => 
                     item is Employees employees && (employees.LastName.StartsWith(lastNameFilter, 
                        StringComparison.InvariantCultureIgnoreCase));
