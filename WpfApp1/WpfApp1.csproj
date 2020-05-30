@@ -39,6 +39,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Csharp.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=2020.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.2020.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
@@ -188,7 +191,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="efpt.config.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -210,6 +215,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Csharp.ico" />
+    <None Include="DetailView.ico" />
+    <Resource Include="Resources\DetailView.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="script.sql" />
   </ItemGroup>
   <ItemGroup />
@@ -221,4 +231,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.0.19235.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.1.0.19235.1\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
