@@ -49,11 +49,22 @@ namespace WpfApp1
 
             _hasShown = true;
             var employeeCollection = new ObservableCollection<Employees>(Context.Employees.AsQueryable());
-
+            
             EmployeeGrid.ItemsSource = employeeCollection;
             
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
 
+            /*
+             * Find employee by last name, if found
+             * select and scroll into view in the DataGrid
+             */
+            var employee = (employeeCollection)
+                .FirstOrDefault(emp => emp.LastName == "Russell");
+
+            if (employee == null) return;
+
+            EmployeeGrid.SelectedItem = employee;
+            EmployeeGrid.ScrollIntoView(employee);
         }
         /// <summary>
         /// Informational
@@ -81,9 +92,9 @@ namespace WpfApp1
             var manager = employee?.Manager;
 
             MessageBox.Show(
-                $"{employee.EmployeeId}: " + 
-                           $"{employee.FirstName} " + 
-                           $"{employee.LastName}\nManager: {manager?.FirstName} {manager?.LastName}", "Current Employee", 
+                $"{employee?.EmployeeId}: " + 
+                           $"{employee?.FirstName} " + 
+                           $"{employee?.LastName}\nManager: {manager?.FirstName} {manager?.LastName}", "Current Employee", 
                 MessageBoxButton.OK, 
                 MessageBoxImage.Information);
         }
@@ -106,8 +117,7 @@ namespace WpfApp1
             else
             {
                 cvs.Filter = item => 
-                    item is Employees employees && 
-                   (employees.LastName.StartsWith(lastNameFilter, 
+                    item is Employees employees && (employees.LastName.StartsWith(lastNameFilter, 
                        StringComparison.InvariantCultureIgnoreCase));
             }
         }
@@ -143,7 +153,9 @@ namespace WpfApp1
             {
                 // we only have to deal with deletes and modified items
                 var affectedCount = Context.ChangeTracker.Entries().Count(entry => 
-                    entry.State == EntityState.Deleted || entry.State == EntityState.Modified || entry.State == EntityState.Added);
+                    entry.State == EntityState.Deleted || 
+                    entry.State == EntityState.Modified || 
+                    entry.State == EntityState.Added);
 
                 if (affectedCount > 0)
                 {
