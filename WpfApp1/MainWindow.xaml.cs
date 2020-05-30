@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HRContext Context;
+        private readonly HRContext Context;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace WpfApp1
             var employeeCollection = new ObservableCollection<Employees>(Context.Employees.AsQueryable());
 
             EmployeeGrid.ItemsSource = employeeCollection;
-
+            
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
 
         }
@@ -68,14 +69,21 @@ namespace WpfApp1
             var employee = (Employees)e.OldItems[0];
             InformationDialog($"Index: {e.OldStartingIndex} - {employee.FirstName} {employee.LastName}", "Just removed");
         }
-
+        /// <summary>
+        /// Show some details on the currently selected employee when clicking
+        /// the view button in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var employee = (Employees) (sender as Button)?.DataContext;
+            var manager = employee?.Manager;
+
             MessageBox.Show(
                 $"{employee.EmployeeId}: " + 
                            $"{employee.FirstName} " + 
-                           $"{employee.LastName}", "Current Employee", 
+                           $"{employee.LastName}\nManager: {manager?.FirstName} {manager?.LastName}", "Current Employee", 
                 MessageBoxButton.OK, 
                 MessageBoxImage.Information);
         }
@@ -135,7 +143,7 @@ namespace WpfApp1
             {
                 // we only have to deal with deletes and modified items
                 var affectedCount = Context.ChangeTracker.Entries().Count(entry => 
-                    entry.State == EntityState.Deleted || entry.State == EntityState.Modified);
+                    entry.State == EntityState.Deleted || entry.State == EntityState.Modified || entry.State == EntityState.Added);
 
                 if (affectedCount > 0)
                 {
@@ -154,6 +162,40 @@ namespace WpfApp1
                 ExceptionDialog("Something went wrong", "Ooops", ex);
             }
         }
+        /// <summary>
+        /// Example for adding a new employee without going thru the hassle of
+        /// rigging up user interface as there are plenty needed to collect
+        /// required fields.
+        ///
+        /// Note no manager assigned, this means in the view button click we
+        /// need to do a null check.
+        /// </summary>
+        private void AddHardCodedEmployee()
+        {
+            // create new employee
+            var employee = new Employees()
+            {
+                FirstName = "Jim",
+                LastName = "Lewis",
+                Email = "jlewis@comcast.net",
+                HireDate = new DateTime(2012, 3, 14),
+                JobId = 4,
+                Salary = 100000,
+                DepartmentId = 9
+            };
+
+            // add and set state for change tracker
+            Context.Entry(employee).State = EntityState.Added;
+
+            // add employee to the grid
+            ((ObservableCollection<Employees>)EmployeeGrid.ItemsSource).Add(employee);
+
+        }
+        /// <summary>
+        /// Close this application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
