@@ -185,9 +185,11 @@ namespace WpfApp1
                     foreach (var entityEntry in modified)
                     {
                         var employee = (Employees) entityEntry.Entity;
+
                         EntityValidationResult validationResult = ValidationHelper.ValidateEntity(employee);
                         if (validationResult.HasError)
                         {
+                            InspectEntities(entityEntry);
                             builderMessages.AppendLine($"{employee.EmployeeId} - {validationResult.ErrorMessageList()}");
                         }
                     }
@@ -217,6 +219,23 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 ExceptionDialog("Something went wrong", "Ooops", ex);
+            }
+        }
+        /// <summary>
+        /// Shows how to get original and current values while validating entries
+        /// in <see cref="SaveChangesButton_Click"/>
+        /// </summary>
+        /// <param name="entityEntry">EntityEntry</param>
+        private void InspectEntities(EntityEntry entityEntry)
+        {
+            foreach (var property in entityEntry.Metadata.GetProperties())
+            {
+                var originalValue = entityEntry.Property(property.Name).OriginalValue;
+                var currentValue = entityEntry.Property(property.Name).CurrentValue;
+                if (!currentValue.Equals(originalValue))
+                {
+                    Console.WriteLine($"{property.Name}: Original: '{originalValue}', Current: '{currentValue}'");
+                }
             }
         }
         /// <summary>
