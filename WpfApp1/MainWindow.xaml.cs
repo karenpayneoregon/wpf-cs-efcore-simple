@@ -37,7 +37,7 @@ namespace WpfApp1
 
         bool _hasShown;
 
-        protected override void OnContentRendered(EventArgs e)
+        protected override async void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
 
@@ -47,8 +47,15 @@ namespace WpfApp1
             }
 
             _hasShown = true;
-            var employeeCollection = new ObservableCollection<Employees>(Context.Employees.AsQueryable());
-            
+
+            var employeeCollection = new ObservableCollection<Employees>();
+
+            await Task.Run(async () =>
+            {
+                employeeCollection  = new ObservableCollection<Employees>( await Context.Employees.ToListAsync());
+            });
+
+
             EmployeeGrid.ItemsSource = employeeCollection;
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
             DataContext = employeeCollection;
@@ -108,6 +115,11 @@ namespace WpfApp1
             var lastNameFilter = tb.Text;
             var cvs = CollectionViewSource.GetDefaultView(EmployeeGrid.ItemsSource);
 
+            if (cvs is null)
+            {
+                return;
+            }
+
             // nothing entered to search so remove an existing filter
             if (string.IsNullOrWhiteSpace(lastNameFilter))
             {
@@ -146,7 +158,7 @@ namespace WpfApp1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
            
             try
@@ -161,7 +173,10 @@ namespace WpfApp1
                 {
                     if (Question("Save changes?"))
                     {
-                        Context.SaveChanges();
+                        await Task.Run(async () =>
+                        {
+                            var count = await Context.SaveChangesAsync();
+                        });
                     }
                 }
                 else
