@@ -64,11 +64,11 @@
                 Margin="11,2,0,2" 
                 TextChanged="LastNameSearchTextBox_TextChanged"/>
 
-            <Button 
+            <Button x:Name="SaveButton" 
                 Grid.Column="1" 
                 HorizontalAlignment="Left" 
                 Content="Save"  
-                Width="70" 
+                Width="70" IsEnabled="False"
                 Margin="159,3,0,2" Height="27" Grid.ColumnSpan="2" Click="SaveChangesButton_Click"/>
 
 

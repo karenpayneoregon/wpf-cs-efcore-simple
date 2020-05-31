@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DataValidatorLibrary.CommonRules
 {
     /// <summary>
-    /// Provides custom rule for phone number rather than using [Phone]
+    /// Provides custom rule for phone number
     /// </summary>
     public class CheckPhoneValidationAttribute : ValidationAttribute 
     {
@@ -14,13 +15,7 @@ namespace DataValidatorLibrary.CommonRules
              */
             bool IsDigitsOnly(string str)
             {
-                foreach (var c in str)
-                {
-                    if (c < '0' || c > '9')
-                        return false;
-                }
-
-                return true;
+                return str.All(c => c >= '0' && c <= '9');
             }
 
             if (value == null)
@@ -28,7 +23,7 @@ namespace DataValidatorLibrary.CommonRules
                 return false;
             }
 
-            string convertedValue = value.ToString();
+            var convertedValue = value.ToString();
 
             return !string.IsNullOrWhiteSpace(convertedValue) && 
                    IsDigitsOnly(convertedValue) && 

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonRules\CheckPhoneValidationAttribute.cs" />
+    <Compile Include="CommonRules\MyDateAttribute.cs" />
     <Compile Include="CommonRules\MyStringLengthAttribute.cs" />
     <Compile Include="CommonRules\RequiredEnumAttribute.cs" />
     <Compile Include="Helpers\EntityValidationResult.cs" />

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataValidatorLibrary.CommonRules
 {
@@ -17,21 +13,21 @@ namespace DataValidatorLibrary.CommonRules
         {
         }
 
-        public override bool IsValid(object value)
+        public override bool IsValid(object objectValue)
         {
-            var val = Convert.ToString(value);
+            var value = Convert.ToString(objectValue);
 
-            if (val.Length < base.MinimumLength)
+            if (value.Length < base.MinimumLength)
             {
                 ErrorMessage = "Minimum length should be 3";
             }
 
-            if (val.Length > MaximumLength)
+            if (value.Length > MaximumLength)
             {
                 ErrorMessage = "Maximum length should be 6";
             }
 
-            return base.IsValid(value);
+            return base.IsValid(objectValue);
         }
     }
 }

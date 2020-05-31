@@ -15,7 +15,10 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using DataValidatorLibrary.Helpers;
+using DataValidatorLibrary.LanguageExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
 using static WpfApp1.Classes.Dialogs;
@@ -52,8 +55,9 @@ namespace WpfApp1
 
             await Task.Run(async () =>
             {
-                employeeCollection  = new ObservableCollection<Employees>( await Context.Employees.ToListAsync());
+                employeeCollection = new ObservableCollection<Employees>(await Context.Employees.ToListAsync());
             });
+
 
 
             EmployeeGrid.ItemsSource = employeeCollection;
@@ -71,6 +75,8 @@ namespace WpfApp1
 
             EmployeeGrid.SelectedItem = employee;
             EmployeeGrid.ScrollIntoView(employee);
+
+            SaveButton.IsEnabled = true;
 
         }
         /// <summary>
@@ -154,25 +160,49 @@ namespace WpfApp1
             }
         }
         /// <summary>
-        /// Save changes by prompting
+        /// Validate any changes via DataAnnotations, display errors if any.
+        /// No validation issues
+        ///    Has changes, prompt to save
+        ///    No changes, inform user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
-           
             try
             {
-                // we only have to deal with deletes and modified items
-                var affectedCount = Context.ChangeTracker.Entries().Count(entry => 
-                    entry.State == EntityState.Deleted || 
-                    entry.State == EntityState.Modified || 
+                // detect changes for delete, updated and added
+                IEnumerable<EntityEntry> modified = Context.ChangeTracker.Entries().Where(entry =>
+                    entry.State == EntityState.Deleted ||
+                    entry.State == EntityState.Modified ||
                     entry.State == EntityState.Added);
 
-                if (affectedCount > 0)
+
+                // If there are changes run each employee through validation
+                if (modified.Any())
                 {
+                    var builderMessages = new StringBuilder();
+                    foreach (var entityEntry in modified)
+                    {
+                        var employee = (Employees) entityEntry.Entity;
+                        EntityValidationResult validationResult = ValidationHelper.ValidateEntity(employee);
+                        if (validationResult.HasError)
+                        {
+                            builderMessages.AppendLine($"{employee.EmployeeId} - {validationResult.ErrorMessageList()}");
+                        }
+                    }
+
+                    // if there validation errors display them
+                    if (builderMessages.Length >0)
+                    {
+                        MessageBox(builderMessages.ToString());
+                        return;
+                    }
+                    
+                    // has changes, no validation issues, prompt to save
                     if (Question("Save changes?"))
                     {
+                        // save changes, count may or may not be needed
                         await Task.Run(async () =>
                         {
                             var count = await Context.SaveChangesAsync();
@@ -197,6 +227,9 @@ namespace WpfApp1
         /// Note no manager assigned, this means in the view button click we
         /// need to do a null check.
         /// </summary>
+        /// <remarks>
+        /// This is a great way (outside unit test) to test validation
+        /// </remarks>
         private void AddHardCodedEmployee()
         {
             // create new employee
@@ -211,11 +244,25 @@ namespace WpfApp1
                 DepartmentId = 9
             };
 
-            // add and set state for change tracker
-            Context.Entry(employee).State = EntityState.Added;
+            EntityValidationResult validationResult = ValidationHelper.ValidateEntity(employee);
+            if (validationResult.HasError)
+            {
+                var errors = validationResult.ErrorMessageList();
+                MessageBox(errors,"Validation errors");
+                return;
+            }
+            else
+            {
+                // add and set state for change tracker
+                Context.Entry(employee).State = EntityState.Added;
+                // add employee to the grid
+                var test = EmployeeGrid.ItemsSource;
+                ((ObservableCollection<Employees>)EmployeeGrid.ItemsSource).Add(employee);
+                MessageBox("Added");
+            }
 
-            // add employee to the grid
-            ((ObservableCollection<Employees>)EmployeeGrid.ItemsSource).Add(employee);
+
+
 
         }
         /// <summary>

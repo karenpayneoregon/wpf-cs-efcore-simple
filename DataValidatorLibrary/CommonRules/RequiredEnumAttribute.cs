@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataValidatorLibrary.CommonRules
 {
@@ -22,7 +18,7 @@ namespace DataValidatorLibrary.CommonRules
             }
 
             var type = value.GetType();
-            return type.IsEnum && Enum.IsDefined(type, value); ;
+            return type.IsEnum && Enum.IsDefined(type, value); 
         }
     }
 }

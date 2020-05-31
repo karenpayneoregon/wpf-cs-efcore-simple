@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WpfApp1.Annotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace WpfApp1.Models
 {
@@ -35,7 +36,8 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        [Required]
+        [StringLength(20, ErrorMessage = "Description Max Length is 20")]
         public string FirstName
         {
             get => _firstName;
@@ -46,7 +48,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        [Required]
         public string LastName
         {
             get => _lastName;
@@ -57,7 +59,16 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        /// <summary>
+        /// Email address
+        /// </summary>
+        /// <remarks>
+        /// Using annotations validate to some degree the email address
+        /// format is valid
+        /// </remarks>
+        [Required(ErrorMessage = "Please Enter Email Address"), 
+         RegularExpression("^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$", 
+             ErrorMessage = "Please Enter Correct {0} Email Address")]
         public string Email
         {
             get => _email;
@@ -79,7 +90,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        [Required]
         public DateTime HireDate
         {
             get => _hireDate;
@@ -90,7 +101,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        [Required]
         public int JobId
         {
             get => _jobId;
@@ -101,7 +112,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged();
             }
         }
-
+        [Required]
         public decimal Salary
         {
             get => _salary;
