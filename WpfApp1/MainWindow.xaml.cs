@@ -55,7 +55,8 @@ namespace WpfApp1
 
             await Task.Run(async () =>
             {
-                employeeCollection = new ObservableCollection<Employees>(await Context.Employees.ToListAsync());
+                employeeCollection = new ObservableCollection<Employees>(
+                    await Context.Employees.ToListAsync());
             });
 
 

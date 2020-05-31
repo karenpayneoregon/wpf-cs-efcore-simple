@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra validation", "Extra validation", "{918D1176-06FA-463F-92AB-7D92BA17BB0A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{918D1176-06FA-463F-92AB-7D92BA17BB0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidatorLibrary", "DataValidatorLibrary\DataValidatorLibrary.csproj", "{7FDD41EA-6186-4458-87E4-3FA1B8302E77}"
 EndProject

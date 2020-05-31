@@ -13,6 +13,8 @@ In this part of the series synchronous operations for reading and saving are sho
 - Restored NuGet packages from Solution Explorer
 - Build and run the project. 
 
-Part 1 [Microsoft TechNet article](https://social.technet.microsoft.com/wiki/contents/articles/53914.wpfentity-framework-core-primer-c.aspx)
+**Part 1** [Microsoft TechNet article: WPF/Entity Framework Core primer (C#)](https://social.technet.microsoft.com/wiki/contents/articles/53914.wpfentity-framework-core-primer-c.aspx)
+
+**Part 2** [Microsoft TechNet article: WPF/EF Core simple data validation (C#)](https://social.technet.microsoft.com/wiki/contents/articles/53915.wpfef-core-simple-data-validation-c.aspx)
 
 ![screenshot](assets/Grid2.png)
