@@ -5,10 +5,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WpfApp1.Annotations;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace WpfApp1.Models
 {
-    public partial class Employees : INotifyPropertyChanged
+    public partial class Employees : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _employeeId;
         private string _firstName;
@@ -155,5 +156,33 @@ namespace WpfApp1.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public string Error
+        {
+            get => throw new NotImplementedException();
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                string errorMessage = null;
+                switch (columnName)
+                {
+                    case "FirstName":
+                        if (String.IsNullOrWhiteSpace(FirstName))
+                        {
+                            errorMessage = "First Name is required.";
+                        }
+                        break;
+                    case "LastName":
+                        if (String.IsNullOrWhiteSpace(LastName))
+                        {
+                            errorMessage = "Last Name is required.";
+                        }
+                        break;
+                }
+                return errorMessage;
+            }
+        }
     }
+
 }

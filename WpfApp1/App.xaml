@@ -23,6 +23,32 @@
                 </Setter.Value>
             </Setter>
 
+            <!-- DataGrid row header error validation template  -->
+            <Setter Property="RowValidationErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid 
+                            Margin="0,-2,0,-2" 
+                            ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, 
+                            Path=(Validation.Errors)[0].ErrorContent}">
+
+                            <Ellipse 
+                                StrokeThickness="0" 
+                                Fill="Red" 
+                                Width="{TemplateBinding FontSize}" 
+                                Height="{TemplateBinding FontSize}" />
+
+                            <TextBlock 
+                                Text="!" 
+                                FontSize="{TemplateBinding FontSize}" 
+                                FontWeight="Bold" 
+                                Foreground="White"  
+                                HorizontalAlignment="Center"  />
+                        </Grid>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
             <Setter Property="CellStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridCell">
@@ -65,7 +91,20 @@
                     </Style>
                 </Setter.Value>
             </Setter>
+
         </Style>
+
+        <!-- error style for showing tool tip in DataGrid row header  -->
+        <Style x:Key="ErrorStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="-2"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},  Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Application.Resources>
 
 </Application>

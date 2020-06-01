@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Code sample" Height="275.77" Width="400.298" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
+
+
     <StackPanel Orientation="Vertical">
         <DataGrid 
             x:Name="EmployeeGrid" CommandManager.PreviewCanExecute="Grid_PreviewCanExecute"
@@ -18,6 +20,7 @@
             <DataGrid.Columns>
 
                 <DataGridTemplateColumn>
+
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Width="55" Click="ViewCurrentEmployee" Content="View"/>
@@ -26,16 +29,17 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn 
-                    Header="First" 
-                    Binding="{Binding FirstName}" 
-                    Width="*"  />
+                    Header="First"
+                    Binding="{Binding FirstName, ValidatesOnDataErrors=True}" 
+                    Width="*"  >
+                </DataGridTextColumn>
 
                 <DataGridTextColumn 
                     Header="Last" 
-                    Binding="{Binding LastName}" 
+                    Binding="{Binding LastName, ValidatesOnDataErrors=True}" 
                     Width="*"  />
-
             </DataGrid.Columns>
+
 
         </DataGrid>
 

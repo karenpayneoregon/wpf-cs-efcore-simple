@@ -1,0 +1,1 @@
+﻿This folder contains sample attributes for data annotations.

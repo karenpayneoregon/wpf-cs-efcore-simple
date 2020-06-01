@@ -45,6 +45,7 @@
     <Compile Include="CommonRules\CheckPhoneValidationAttribute.cs" />
     <Compile Include="CommonRules\MyDateAttribute.cs" />
     <Compile Include="CommonRules\MyStringLengthAttribute.cs" />
+    <Compile Include="CommonRules\PasswordCheck.cs" />
     <Compile Include="CommonRules\RequiredEnumAttribute.cs" />
     <Compile Include="Helpers\EntityValidationResult.cs" />
     <Compile Include="Helpers\EntityValidator.cs" />
@@ -59,6 +60,9 @@
       <Project>{7F93F525-1ED4-4842-B8A0-AB1CB0D06EA8}</Project>
       <Name>LanguageExtensionsLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommonRules\readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
