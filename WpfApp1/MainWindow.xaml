@@ -1,21 +1,23 @@
 ﻿<Window x:Class="WpfApp1.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d"
-        Title="Code sample" Height="275.77" Width="400.298" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-
-
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfApp1"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Code sample"
+    Width="400.298"
+    Height="303.77"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <DataGrid 
-            x:Name="EmployeeGrid" CommandManager.PreviewCanExecute="Grid_PreviewCanExecute"
-            AutoGenerateColumns="False" 
-            CanUserAddRows="False" 
-            Margin="0,5,0,15" 
-            Height="162">
+        <DataGrid x:Name="EmployeeGrid"
+            Height="162"
+            Margin="0,5,0,15"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CommandManager.PreviewCanExecute="Grid_PreviewCanExecute">
 
             <DataGrid.Columns>
 
@@ -23,21 +25,24 @@
 
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="55" Click="ViewCurrentEmployee" Content="View"/>
+                            <Button
+                                Width="55"
+                                Click="ViewCurrentEmployee"
+                                Content="View" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn 
-                    Header="First"
-                    Binding="{Binding FirstName, ValidatesOnDataErrors=True}" 
-                    Width="*"  >
-                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding FirstName, ValidatesOnDataErrors=True}"
+                    Header="First" />
 
-                <DataGridTextColumn 
-                    Header="Last" 
-                    Binding="{Binding LastName, ValidatesOnDataErrors=True}" 
-                    Width="*"  />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding LastName, ValidatesOnDataErrors=True}"
+                    Header="Last" />
+
             </DataGrid.Columns>
 
 
@@ -52,39 +57,52 @@
             </Grid.ColumnDefinitions>
 
 
-            <Label Grid.Column="0" 
-                   Content="Search" 
-                   VerticalAlignment="Center" 
-                   Margin="5,0,0,0" Height="26"/>
+            <Label
+                Grid.Column="0"
+                Height="26"
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Content="Search" />
 
-            <TextBox 
-                Grid.Column="1" 
-                x:Name="LastNameSearchTextBox" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center" 
-                Height="22" Width="92" 
-                TextWrapping="Wrap" 
-                Text="" 
-                Margin="11,2,0,2" 
-                TextChanged="LastNameSearchTextBox_TextChanged"/>
+            <TextBox x:Name="LastNameSearchTextBox"
+                Grid.Column="1"
+                Width="92"
+                Height="22"
+                Margin="11,2,0,2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text=""
+                TextChanged="LastNameSearchTextBox_TextChanged"
+                TextWrapping="Wrap" />
 
-            <Button x:Name="SaveButton" 
-                Grid.Column="1" 
-                HorizontalAlignment="Left" 
-                Content="Save"  
-                Width="70" IsEnabled="False"
-                Margin="159,3,0,2" Height="27" Grid.ColumnSpan="2" Click="SaveChangesButton_Click"/>
+            <Button x:Name="SaveButton"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="70"
+                Height="27"
+                Margin="162,3,0,2"
+                HorizontalAlignment="Left"
+                Click="SaveChangesButton_Click"
+                Content="Save"
+                IsEnabled="False" />
 
 
-            <Button 
-                Grid.Column="2" 
-                HorizontalAlignment="Right" 
-                Content="Exit" 
-                Margin="0,3,188,2"  
-                Width="70" 
-                Click="CloseButton_Click" Height="27" Grid.ColumnSpan="2"/>
+            <Button
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Width="70"
+                Height="27"
+                Margin="0,3,194,2"
+                HorizontalAlignment="Right"
+                Click="CloseButton_Click"
+                Content="Exit" />
 
         </Grid>
+        <Button
+            Height="27"
+            Margin="60,10,241,0"
+            Command="{x:Static local:MainWindow.IterateRoutedCommand}"
+            Content="Iterate" />
 
     </StackPanel>
 

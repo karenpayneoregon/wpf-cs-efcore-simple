@@ -22,7 +22,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
 using static WpfApp1.Classes.Dialogs;
-using MessageBox = System.Windows.MessageBox;
+
 
 namespace WpfApp1
 {
@@ -31,11 +31,35 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly HRContext Context;
+        private readonly HRContext _context;
+        public static RoutedCommand IterateRoutedCommand = new RoutedCommand();
+
+        private void IterateCommandOnExecute(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (DataContext == null) return;
+
+            var employees = (ObservableCollection<Employees>)DataContext;
+
+            foreach (var employee in employees)
+            {
+                Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+            }
+
+        }
+
+        private void IterateCanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         public MainWindow()
         {
             InitializeComponent();
-            Context = new HRContext();
+
+            _context = new HRContext();
+
+            CommandBindings.Add(new CommandBinding(
+                IterateRoutedCommand,
+                IterateCommandOnExecute,
+                IterateCanExecute));
+
         }
 
         bool _hasShown;
@@ -56,7 +80,7 @@ namespace WpfApp1
             await Task.Run(async () =>
             {
                 employeeCollection = new ObservableCollection<Employees>(
-                    await Context.Employees.ToListAsync());
+                    await _context.Employees.ToListAsync());
             });
 
 
@@ -105,7 +129,7 @@ namespace WpfApp1
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var employee = (Employees) (sender as Button)?.DataContext;
-
+            Console.WriteLine(DataContext.GetType());
             var window = new DetailsWindow(employee) {Owner = this};
             window.ShowDialog();
             
@@ -173,7 +197,7 @@ namespace WpfApp1
             try
             {
                 // detect changes for delete, updated and added
-                IEnumerable<EntityEntry> modified = Context.ChangeTracker.Entries().Where(entry =>
+                IEnumerable<EntityEntry> modified = _context.ChangeTracker.Entries().Where(entry =>
                     entry.State == EntityState.Deleted ||
                     entry.State == EntityState.Modified ||
                     entry.State == EntityState.Added);
@@ -208,7 +232,7 @@ namespace WpfApp1
                         // save changes, count may or may not be needed
                         await Task.Run(async () =>
                         {
-                            var count = await Context.SaveChangesAsync();
+                            var count = await _context.SaveChangesAsync();
                         });
                     }
                 }
@@ -233,10 +257,18 @@ namespace WpfApp1
             {
                 var originalValue = entityEntry.Property(property.Name).OriginalValue;
                 var currentValue = entityEntry.Property(property.Name).CurrentValue;
-                if (!currentValue.Equals(originalValue))
+                if (originalValue != null || currentValue != null)
                 {
-                    Console.WriteLine($"{property.Name}: Original: '{originalValue}', Current: '{currentValue}'");
+                    if (!currentValue.Equals(originalValue))
+                    {
+                        Console.WriteLine($"{property.Name}: Original: '{originalValue}', Current: '{currentValue}'");
+                    }
                 }
+                else
+                {
+                    // TODO handle nulls
+                }
+
             }
         }
         /// <summary>
@@ -274,15 +306,12 @@ namespace WpfApp1
             else
             {
                 // add and set state for change tracker
-                Context.Entry(employee).State = EntityState.Added;
+                _context.Entry(employee).State = EntityState.Added;
                 // add employee to the grid
                 var test = EmployeeGrid.ItemsSource;
                 ((ObservableCollection<Employees>)EmployeeGrid.ItemsSource).Add(employee);
                 MessageBox("Added");
             }
-
-
-
 
         }
         /// <summary>

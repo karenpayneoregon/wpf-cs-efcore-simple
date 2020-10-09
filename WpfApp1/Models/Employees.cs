@@ -33,6 +33,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _employeeId) return;
+
                 _employeeId = value;
                 OnPropertyChanged();
             }
@@ -45,6 +46,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _firstName) return;
+
                 _firstName = value;
                 OnPropertyChanged();
             }
@@ -56,6 +58,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _lastName) return;
+
                 _lastName = value;
                 OnPropertyChanged();
             }
@@ -76,6 +79,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _email) return;
+
                 _email = value;
                 OnPropertyChanged();
             }
@@ -87,6 +91,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _phoneNumber) return;
+
                 _phoneNumber = value;
                 OnPropertyChanged();
             }
@@ -98,6 +103,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value.Equals(_hireDate)) return;
+
                 _hireDate = value;
                 OnPropertyChanged();
             }
@@ -109,6 +115,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _jobId) return;
+
                 _jobId = value;
                 OnPropertyChanged();
             }
@@ -120,6 +127,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _salary) return;
+
                 _salary = value;
                 OnPropertyChanged();
             }
@@ -131,6 +139,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _managerId) return;
+
                 _managerId = value;
                 OnPropertyChanged();
             }
@@ -142,6 +151,7 @@ namespace WpfApp1.Models
             set
             {
                 if (value == _departmentId) return;
+
                 _departmentId = value;
                 OnPropertyChanged();
             }
@@ -165,6 +175,7 @@ namespace WpfApp1.Models
             get
             {
                 string errorMessage = null;
+
                 switch (columnName)
                 {
                     case "FirstName":
@@ -180,6 +191,7 @@ namespace WpfApp1.Models
                         }
                         break;
                 }
+
                 return errorMessage;
             }
         }
