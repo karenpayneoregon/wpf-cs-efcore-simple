@@ -19,6 +19,7 @@ using DataValidatorLibrary.Helpers;
 using DataValidatorLibrary.LanguageExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using WpfApp1.Classes;
 using WpfApp1.Contexts;
 using WpfApp1.Models;
 using static WpfApp1.Classes.Dialogs;
@@ -27,7 +28,7 @@ using static WpfApp1.Classes.Dialogs;
 namespace WpfApp1
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -79,10 +80,11 @@ namespace WpfApp1
 
             await Task.Run(async () =>
             {
-                employeeCollection = new ObservableCollection<Employees>(
-                    await _context.Employees.ToListAsync());
+                employeeCollection = new ObservableCollection<Employees>(await _context.Employees.ToListAsync());
             });
 
+            //await Task.Delay(1);
+            //employeeCollection = new ObservableCollection<Employees>(EmployeesOperations.List());
 
 
             EmployeeGrid.ItemsSource = employeeCollection;

@@ -2,7 +2,9 @@
 
 In this part of the series synchronous operations for reading and saving are shown.
 
+### 12/2020
 
+Added conventional SqlDataReader code which is commented out yet works for view only, no CRUD actions have been coded.
 
 # See also
 [WPF Apps With The Model-View-ViewModel Design Pattern](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern)
