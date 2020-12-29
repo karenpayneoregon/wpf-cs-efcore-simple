@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.960
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{01483674-EFBB-4080-8163-851E55CAF2E1}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{918D1176-06FA-463F-92AB-7D92BA17BB0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidatorLibrary", "DataValidatorLibrary\DataValidatorLibrary.csproj", "{7FDD41EA-6186-4458-87E4-3FA1B8302E77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkCanExecuteExample", "FrameworkCanExecuteExample\FrameworkCanExecuteExample.csproj", "{2F91BD30-063E-4AA4-BA4B-4BD068F09A62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FDD41EA-6186-4458-87E4-3FA1B8302E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F91BD30-063E-4AA4-BA4B-4BD068F09A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F91BD30-063E-4AA4-BA4B-4BD068F09A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F91BD30-063E-4AA4-BA4B-4BD068F09A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F91BD30-063E-4AA4-BA4B-4BD068F09A62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
