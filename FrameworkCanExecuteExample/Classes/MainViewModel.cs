@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -32,7 +33,7 @@ namespace FrameworkCanExecuteExample.Classes
 
         private void Confirm(object parameter)
         {
-            Console.WriteLine();
+            Debug.WriteLine("Do something for confirm");
         }
 
         private bool CanConfirm(object parameter)
