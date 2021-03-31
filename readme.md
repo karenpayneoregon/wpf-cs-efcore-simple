@@ -6,6 +6,11 @@ In this part of the series synchronous operations for reading and saving are sho
 
 Added conventional SqlDataReader code which is commented out yet works for view only, no CRUD actions have been coded.
 
+### Update 03/2021
+
+Added logic for updating the current row in the DataGrid using OnRowEditEnding event.
+
+
 # See also
 [WPF Apps With The Model-View-ViewModel Design Pattern](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern)
 
