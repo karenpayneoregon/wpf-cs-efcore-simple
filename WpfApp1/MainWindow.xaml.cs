@@ -333,8 +333,13 @@ namespace WpfApp1
              * If you want access to the employee 
              */
             var employee = (Employees) e.Row.Item;
+
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                _context.SaveChanges();
+            }
             
-            _context.SaveChanges();
+            
 
         }
     }
