@@ -89,6 +89,7 @@ namespace WpfApp1
 
             EmployeeGrid.ItemsSource = employeeCollection;
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
+            
             DataContext = employeeCollection;
 
             /*
@@ -326,5 +327,15 @@ namespace WpfApp1
             Application.Current.Shutdown();
         }
 
+        private void EmployeeGrid_OnRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            /*
+             * If you want access to the employee 
+             */
+            var employee = (Employees) e.Row.Item;
+            
+            _context.SaveChanges();
+
+        }
     }
 }
