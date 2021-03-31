@@ -338,8 +338,6 @@ namespace WpfApp1
             {
                 _context.SaveChanges();
             }
-            
-            
 
         }
     }
