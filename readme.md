@@ -17,4 +17,8 @@ In this part of the series synchronous operations for reading and saving are sho
 
 **Part 2** [Microsoft TechNet article: WPF/EF Core simple data validation (C#)](https://social.technet.microsoft.com/wiki/contents/articles/53915.wpfef-core-simple-data-validation-c.aspx)
 
-![screenshot](assets/Grid2.png)
+![img](assets/figure1.png)
+
+</br>
+
+![img](assets/figure2.png)
