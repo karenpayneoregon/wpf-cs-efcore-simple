@@ -5,7 +5,7 @@
     xmlns:classes="clr-namespace:FrameworkCanExecuteExample.Classes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
+    Title="Code sample"
     Width="300"
     Height="118"
     WindowStartupLocation="CenterScreen"
@@ -15,7 +15,7 @@
         <classes:MainViewModel />
     </Window.DataContext>
 
-    <Grid Width="300" Height="102" Margin="0,0,0,3">
+    <Grid Width="300" Height="102">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="5*" />
@@ -32,7 +32,7 @@
         <TextBox
             Grid.Row="0"
             Grid.Column="1"
-            Text="{Binding Path=ConnectionString, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,30,0" />
+            Text="{Binding Path=ConnectionString, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,25,0" />
 
         <Button
             Grid.Row="1"
