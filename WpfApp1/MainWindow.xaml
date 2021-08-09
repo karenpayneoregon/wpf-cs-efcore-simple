@@ -18,7 +18,8 @@
             Height="162"
             Margin="0,5,0,15"
             AutoGenerateColumns="False"
-            CanUserAddRows="False"
+            CanUserAddRows="False" 
+            RowEditEnding="EmployeeGrid_OnRowEditEnding" 
             CommandManager.PreviewCanExecute="Grid_PreviewCanExecute">
 
             <DataGrid.Columns>
@@ -37,12 +38,12 @@
 
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding FirstName, ValidatesOnDataErrors=True}"
+                    Binding="{Binding FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                     Header="First" />
 
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding LastName, ValidatesOnDataErrors=True}"
+                    Binding="{Binding LastName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                     Header="Last" />
 
             </DataGrid.Columns>

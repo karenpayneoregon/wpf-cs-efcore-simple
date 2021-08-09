@@ -2,6 +2,13 @@
 
 In this part of the series synchronous operations for reading and saving are shown.
 
+### Update 12/2020
+
+Added conventional SqlDataReader code which is commented out yet works for view only, no CRUD actions have been coded.
+
+### Update 03/2021
+
+Added logic for updating the current row in the DataGrid using OnRowEditEnding event.
 
 
 # See also
