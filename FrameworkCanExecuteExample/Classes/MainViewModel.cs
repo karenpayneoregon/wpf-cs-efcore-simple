@@ -36,9 +36,17 @@ namespace FrameworkCanExecuteExample.Classes
             Debug.WriteLine("Do something for confirm");
         }
 
-        private bool CanConfirm(object parameter)
+        private bool CanConfirm(object parameter) 
+            => IsValidConnection();
+
+        /// <summary>
+        /// Here is just enough code to demonstrate doing starter validation which
+        /// needs a good deal more to validate a connection string.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsValidConnection()
         {
-            return !string.IsNullOrWhiteSpace(_connectionString);
+            return !string.IsNullOrWhiteSpace(_connectionString) && _connectionString.Length > 5;
         }
     }
 }
