@@ -116,7 +116,7 @@ namespace WpfApp1
         private void EmployeeCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems == null) return;
-            Console.WriteLine(e.Action);
+            //Console.WriteLine(e.Action);
             if (e.Action != NotifyCollectionChangedAction.Remove) return;
 
             var employee = (Employees)e.OldItems[0];
@@ -132,7 +132,7 @@ namespace WpfApp1
         private void ViewCurrentEmployee(object sender, RoutedEventArgs e)
         {
             var employee = (Employees) (sender as Button)?.DataContext;
-            Console.WriteLine(DataContext.GetType());
+            //Console.WriteLine(DataContext.GetType());
             var window = new DetailsWindow(employee) {Owner = this};
             window.ShowDialog();
             

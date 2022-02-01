@@ -33,7 +33,8 @@ namespace FrameworkCanExecuteExample.Classes
 
         private void Confirm(object parameter)
         {
-            Debug.WriteLine("Do something for confirm");
+            
+            Debug.WriteLine($"Text for ConnectionString is '{ConnectionString}'");
         }
 
         private bool CanConfirm(object parameter) 
