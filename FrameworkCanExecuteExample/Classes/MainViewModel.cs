@@ -33,7 +33,6 @@ namespace FrameworkCanExecuteExample.Classes
 
         private void Confirm(object parameter)
         {
-            
             Debug.WriteLine($"Text for ConnectionString is '{ConnectionString}'");
         }
 
