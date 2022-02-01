@@ -32,7 +32,7 @@ Code presented does not fully adhere to what a purest/seasoned developer would c
     Content="Confirm" />
 ```
 
-The model, `MainViewModel` 
+:small_blue_diamond: The model, [MainViewModel](https://github.com/karenpayneoregon/wpf-cs-efcore-simple/blob/Step2/FrameworkCanExecuteExample/Classes/MainViewModel.cs) 
 
 :small_blue_diamond: **Code to execute with the button enabled**
 
