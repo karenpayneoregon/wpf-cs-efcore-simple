@@ -12,6 +12,7 @@ namespace FrameworkCanExecuteExample.Classes
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ICommand ConfirmCommand { get; }
         public MainViewModel() => ConfirmCommand = new RelayCommand(Confirm, CanConfirm);
 
         public string ConnectionString
@@ -24,7 +25,6 @@ namespace FrameworkCanExecuteExample.Classes
             }
         }
 
-        public ICommand ConfirmCommand { get; }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
