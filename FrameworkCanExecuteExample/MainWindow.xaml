@@ -8,8 +8,9 @@
     Title="Code sample"
     Width="300"
     Height="118"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" ResizeMode="NoResize">
+    mc:Ignorable="d">
 
     <Window.DataContext>
         <classes:MainViewModel />
@@ -26,20 +27,22 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock
+            Width="97"
             Margin="43,0,0,0"
             HorizontalAlignment="Left"
-            Text="Connection string:" Width="97" />
+            Text="Connection string:" />
         <TextBox
             Grid.Row="0"
             Grid.Column="1"
-            Text="{Binding Path=ConnectionString, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,25,0" />
+            Margin="10,0,25,0"
+            Text="{Binding Path=ConnectionString, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2"
+            Margin="10,13,25,32"
             Command="{Binding ConfirmCommand}"
-
-            Content="Confirm" Margin="10,13,25,32" />
+            Content="Confirm" />
     </Grid>
 </Window>
