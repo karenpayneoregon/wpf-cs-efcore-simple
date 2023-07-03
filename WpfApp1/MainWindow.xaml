@@ -18,9 +18,15 @@
             Height="162"
             Margin="0,5,0,15"
             AutoGenerateColumns="False"
-            CanUserAddRows="False" 
-            RowEditEnding="EmployeeGrid_OnRowEditEnding" 
-            CommandManager.PreviewCanExecute="Grid_PreviewCanExecute">
+            CanUserAddRows="False"
+            CommandManager.PreviewCanExecute="Grid_PreviewCanExecute"
+            RowEditEnding="EmployeeGrid_OnRowEditEnding">
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ValidationErrorTemplate" Value="{x:Null}"/>
+                </Style>
+            </DataGrid.RowStyle>
 
             <DataGrid.Columns>
 
@@ -48,6 +54,16 @@
 
             </DataGrid.Columns>
 
+            <!--<DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="White" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>-->
 
         </DataGrid>
 

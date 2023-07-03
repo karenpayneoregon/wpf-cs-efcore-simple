@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FrameworkCanExecuteExample.Classes
@@ -35,6 +36,7 @@ namespace FrameworkCanExecuteExample.Classes
         {
             
             Debug.WriteLine($"Text for ConnectionString is '{ConnectionString}'");
+            MessageBox.Show("xx");
         }
 
         private bool CanConfirm(object parameter)

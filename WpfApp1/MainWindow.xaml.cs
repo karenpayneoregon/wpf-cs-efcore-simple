@@ -48,7 +48,8 @@ namespace WpfApp1
 
         }
 
-        private void IterateCanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void IterateCanExecute(object sender, CanExecuteRoutedEventArgs e) 
+            => e.CanExecute = true;
 
         public MainWindow()
         {
@@ -80,7 +81,8 @@ namespace WpfApp1
 
             await Task.Run(async () =>
             {
-                employeeCollection = new ObservableCollection<Employees>(await _context.Employees.ToListAsync());
+                employeeCollection = new ObservableCollection<Employees>(await 
+                    _context.Employees.OrderBy(emp => emp.LastName).ToListAsync());
             });
 
             //await Task.Delay(1);
@@ -90,7 +92,7 @@ namespace WpfApp1
             EmployeeGrid.ItemsSource = employeeCollection;
             employeeCollection.CollectionChanged += EmployeeCollection_CollectionChanged;
             
-            DataContext = employeeCollection;
+            //DataContext = employeeCollection;
 
             /*
              * Find employee by last name, if found
@@ -116,7 +118,7 @@ namespace WpfApp1
         private void EmployeeCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems == null) return;
-            //Console.WriteLine(e.Action);
+
             if (e.Action != NotifyCollectionChangedAction.Remove) return;
 
             var employee = (Employees)e.OldItems[0];
@@ -214,7 +216,9 @@ namespace WpfApp1
                     {
                         var employee = (Employees) entityEntry.Entity;
 
-                        EntityValidationResult validationResult = ValidationHelper.ValidateEntity(employee);
+                        EntityValidationResult validationResult = 
+                            ValidationHelper.ValidateEntity(employee);
+
                         if (validationResult.HasError)
                         {
                             InspectEntities(entityEntry);
@@ -260,10 +264,12 @@ namespace WpfApp1
             {
                 var originalValue = entityEntry.Property(property.Name).OriginalValue;
                 var currentValue = entityEntry.Property(property.Name).CurrentValue;
+
                 if (originalValue != null || currentValue != null)
                 {
                     if (!currentValue.Equals(originalValue))
                     {
+                        // ReSharper disable once LocalizableElement
                         Console.WriteLine($"{property.Name}: Original: '{originalValue}', Current: '{currentValue}'");
                     }
                 }
@@ -329,6 +335,7 @@ namespace WpfApp1
 
         private void EmployeeGrid_OnRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
+            
             /*
              * If you want access to the employee 
              */
